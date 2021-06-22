@@ -1,8 +1,8 @@
-from threading import Thread
+from threading import Thread ,Lock
 
 import functions
-from functions import  database_value
-from functions import increase
+# from functions import  database_value
+# from functions import increase
 
 
 if __name__ =="__main__":
@@ -24,11 +24,13 @@ if __name__ =="__main__":
     # for thread in threads :
     #     thread.join()
 
-    print ('wtart value', database_value)
+
+    lock =Lock()
+    print ('start value', database_value)
 
 
-    thread1 =Thread(target=increase)
-    thread2 =Thread(target=increase)
+    thread1 =Thread(target=increase, args=(lock,))
+    thread2 =Thread(target=increase, args=(lock,))
 
     thread1.start()
     thread2.start()
